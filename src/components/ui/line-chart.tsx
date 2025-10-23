@@ -9,6 +9,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  ChartOptions
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
@@ -38,7 +39,7 @@ const LineChart = ({ title, data, color }: LineChartProps) => {
         fill: true,
         backgroundColor: `${color}33`, // شفافية للخلفية
         borderColor: color,
-        tension: 0.3, // انحناء الخط
+        tension: 0.3,
         pointRadius: 6,
         pointHoverRadius: 8,
         pointBackgroundColor: color,
@@ -46,12 +47,10 @@ const LineChart = ({ title, data, color }: LineChartProps) => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
-      legend: {
-        display: false, // نقدر نعرضها إذا أردنا
-      },
+      legend: { display: false },
       tooltip: {
         mode: "index" as const,
         intersect: false,
@@ -61,31 +60,12 @@ const LineChart = ({ title, data, color }: LineChartProps) => {
         titleFont: { weight: "bold" },
         padding: 10,
       },
-      title: {
-        display: false,
-      },
+      title: { display: false },
     },
-    interaction: {
-      mode: "nearest" as const,
-      intersect: false,
-    },
+    interaction: { mode: "nearest" as const, intersect: false },
     scales: {
-      x: {
-        ticks: {
-          color: "#D1D5DB",
-        },
-        grid: {
-          color: "#374151",
-        },
-      },
-      y: {
-        ticks: {
-          color: "#D1D5DB",
-        },
-        grid: {
-          color: "#374151",
-        },
-      },
+      x: { ticks: { color: "#D1D5DB" }, grid: { color: "#374151" } },
+      y: { ticks: { color: "#D1D5DB" }, grid: { color: "#374151" } },
     },
   };
 
