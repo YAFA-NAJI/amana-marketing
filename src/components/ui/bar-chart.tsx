@@ -1,8 +1,8 @@
 interface BarChartDataPoint {
   label: string;
   value: number;
-  color?: string; // optional single color
-  gradient?: string[]; // optional gradient array
+  color?: string;
+  gradient?: string[]; // optional gradient per bar
 }
 
 interface BarChartProps {
@@ -12,15 +12,17 @@ interface BarChartProps {
   height?: number;
   showValues?: boolean;
   formatValue?: (value: number) => string;
+  gradient?: string[]; // optional gradient for entire chart
 }
 
-export function BarChart({ 
-  title, 
-  data, 
-  className = "", 
+export function BarChart({
+  title,
+  data,
+  className = "",
   height = 300,
   showValues = true,
-  formatValue = (value) => value.toLocaleString()
+  formatValue = (value) => value.toLocaleString(),
+  gradient,
 }: BarChartProps) {
   if (!data || data.length === 0) {
     return (
@@ -33,7 +35,7 @@ export function BarChart({
     );
   }
 
-  const maxValue = Math.max(...data.map(item => item.value));
+  const maxValue = Math.max(...data.map((item) => item.value));
   const defaultColors = [
     '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', 
     '#06B6D4', '#84CC16', '#F97316', '#EC4899', '#6366F1'
@@ -42,40 +44,39 @@ export function BarChart({
   return (
     <div className={`bg-gray-800 rounded-lg p-6 border border-gray-700 ${className}`}>
       <h3 className="text-lg font-semibold text-white mb-6">{title}</h3>
-      
+
       <div className="relative" style={{ height: `${height}px` }}>
         <div className="flex items-end justify-between h-full gap-2">
           {data.map((item, index) => {
             const barHeight = maxValue > 0 ? (item.value / maxValue) * (height - 60) : 0;
             const barColor = item.color || defaultColors[index % defaultColors.length];
 
-            // Gradient style if provided
+            // Gradient style
             const backgroundStyle = item.gradient
-              ? { background: `linear-gradient(to top, ${item.gradient.join(", ")})` }
+              ? { background: `linear-gradient(to top, ${item.gradient.join(', ')})` }
+              : gradient
+              ? { background: `linear-gradient(to top, ${gradient.join(', ')})` }
               : { backgroundColor: barColor };
 
             return (
               <div key={item.label} className="flex flex-col items-center flex-1 min-w-0">
-                {/* Value label */}
                 {showValues && (
                   <div className="text-xs text-gray-300 mb-2 text-center">
                     {formatValue(item.value)}
                   </div>
                 )}
-                
-                {/* Bar */}
+
                 <div className="relative w-full flex justify-center">
                   <div
-                    className="w-full max-w-16 rounded-t-xl shadow-lg transition-all duration-300 hover:scale-105 hover:opacity-90"
+                    className="w-full max-w-16 rounded-t transition-all duration-300 hover:opacity-80"
                     style={{
                       height: `${barHeight}px`,
+                      minHeight: item.value > 0 ? '4px' : '0px',
                       ...backgroundStyle,
-                      minHeight: item.value > 0 ? '4px' : '0px'
                     }}
                   />
                 </div>
-                
-                {/* Label */}
+
                 <div className="text-xs text-gray-400 mt-2 text-center break-words">
                   {item.label}
                 </div>
