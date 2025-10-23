@@ -1,11 +1,12 @@
-interface BarChartDataPoint {
+// src/components/ui/bar-chart.tsx
+export interface BarChartDataPoint {
   label: string;
   value: number;
   color?: string;
   gradient?: string[]; // optional gradient per bar
 }
 
-interface BarChartProps {
+export interface BarChartProps {
   title: string;
   data: BarChartDataPoint[];
   className?: string;
@@ -37,7 +38,7 @@ export function BarChart({
 
   const maxValue = Math.max(...data.map((item) => item.value));
   const defaultColors = [
-    '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', 
+    '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6',
     '#06B6D4', '#84CC16', '#F97316', '#EC4899', '#6366F1'
   ];
 
@@ -51,7 +52,6 @@ export function BarChart({
             const barHeight = maxValue > 0 ? (item.value / maxValue) * (height - 60) : 0;
             const barColor = item.color || defaultColors[index % defaultColors.length];
 
-            // Gradient style
             const backgroundStyle = item.gradient
               ? { background: `linear-gradient(to top, ${item.gradient.join(', ')})` }
               : gradient
@@ -85,7 +85,6 @@ export function BarChart({
           })}
         </div>
 
-        {/* Y-axis reference lines */}
         <div className="absolute inset-0 pointer-events-none">
           {[0.25, 0.5, 0.75].map((ratio) => (
             <div
