@@ -5,9 +5,10 @@ import { CardMetric } from "../../src/components/ui/card-metric";
 import mockup from "@/mockup.json";
 import { Campaign } from "@/src/types/marketing";
 import dynamic from "next/dynamic";
+import mockupData from "@/mockup.json";
 
 export default function DeviceView() {
-  const campaigns: Campaign[] = mockup.campaigns;
+const campaigns: Campaign[] = (mockupData as { campaigns: Campaign[] }).campaigns;
 
   // Aggregate by device
   const deviceData = campaigns.reduce(
