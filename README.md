@@ -1,151 +1,106 @@
-# Amana Marketing Dashboard
+# Marketing Dashboard
 
-A comprehensive marketing analytics dashboard built with Next.js that provides real-time insights into marketing campaign performance, demographics, regional data, and weekly trends.
+A modern, interactive dashboard for marketing campaign analytics. This project provides insights across **Demographics, Weekly Performance, Regional Performance, and Device Performance** using highly interactive and visually appealing components.
+
+---
+
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Pages](#pages)
+   - [Demographic View](#demographic-view)
+   - [Weekly View](#weekly-view)
+   - [Region View](#region-view)
+   - [Device View](#device-view)
+4. [Components](#components)
+5. [Installation](#installation)
+6. [Deployment](#deployment)
+
+---
+
+## Overview
+This dashboard uses **Next.js**, **Tailwind CSS**, and **React** components to provide real-time, interactive insights on marketing campaigns. It is designed to be **responsive, visually appealing, and easy to navigate**.
+
+---
 
 ## Features
+- **Interactive Charts:** Line Charts, Bar Charts, Radial Charts, and Bubble Maps.
+- **Dynamic Data Aggregation:** Automatically summarizes metrics by demographics, regions, weeks, and devices.
+- **Responsive Layouts:** Fully responsive for desktop and mobile devices.
+- **Hover Animations and Gradients:** Engaging UI elements to enhance user experience.
+- **Dynamic Importing:** Heavy components like charts are loaded dynamically for faster performance.
 
-### 📊 **Dashboard Overview**
-- Real-time marketing metrics and KPIs
-- Company information and performance highlights
-- Market insights including peak performance analytics
-- Total campaigns, revenue, ROAS, and conversion tracking
+---
 
-### 🎯 **Campaign Analytics**
-- Detailed campaign performance tracking
-- Advanced filtering by campaign name and type
-- Interactive charts for revenue and ROAS comparison
-- Performance breakdown by medium (Instagram, Facebook, Google Ads)
-- Comprehensive campaign data table with sorting capabilities
+## Pages
 
-### 👥 **Demographic Insights**
-- Audience demographic analysis
-- Age group and gender performance metrics
-- Device performance tracking
-- Target audience insights
+### 1. Demographic View
+Displays performance data segmented by **Gender** and **Age Group**.
 
-### 📅 **Weekly Performance**
-- Week-over-week performance tracking
-- Time-based analytics and trends
-- Historical performance data
+**Features:**
+- Metric cards for clicks, spend, and revenue by gender.
+- Bar charts showing spend and revenue by age group.
+- Interactive tables for male and female age group performance.
+- Hover animations and smooth gradients for visual appeal.
 
-### 🌍 **Regional Analytics**
-- Geographic performance breakdown
-- Country and region-specific metrics
-- Regional ROAS and conversion tracking
+**Key Components:**
+- `CardMetric`: Displays KPIs in a visually appealing card.
+- `BarChart`: Shows age group spend/revenue trends.
+- `Table`: Lists demographic performance metrics.
 
-## Technology Stack
+---
 
-- **Framework**: [Next.js 15](https://nextjs.org) with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Data Source**: External API integration with Amana Bootcamp
+### 2. Weekly View
+Displays **weekly aggregated performance** of campaigns.
 
-## Getting Started
+**Features:**
+- Interactive Line Charts for revenue and spend trends.
+- Smooth animations for lines to indicate growth.
+- Fully responsive charts with color differentiation.
 
-### Prerequisites
-- Node.js (version 18 or higher)
-- npm, yarn, pnpm, or bun
+**Key Components:**
+- `LineChart`: Displays weekly metrics dynamically.
+- Aggregation logic calculates total revenue or spend per week.
 
-### Installation
+---
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd amana-marketing
-```
+### 3. Region View
+Shows **campaign performance by geographic regions**.
 
-2. Install dependencies:
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
+**Features:**
+- Interactive **Heat/Bubble Map** showing revenue by region.
+- Circle size represents magnitude of performance (e.g., revenue or spend).
+- Popups on each city display exact metrics.
+- Dynamic centering and responsive map layout.
 
-3. Start the development server:
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Key Components:**
+- `HeatMap`: Displays a Leaflet map with CircleMarkers sized by value.
+- Aggregation function calculates metrics for each region across campaigns.
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
+---
 
-## Project Structure
+### 4. Device View
+Compares performance between **Desktop** and **Mobile** campaigns.
 
-```
-amana-marketing/
-├── app/                          # Next.js App Router pages
-│   ├── api/marketing-data/       # API routes for data fetching
-│   ├── campaign-view/            # Campaign analytics page
-│   ├── demographic-view/         # Demographic insights page
-│   ├── weekly-view/              # Weekly performance page
-│   ├── region-view/              # Regional analytics page
-│   └── page.tsx                  # Main dashboard page
-├── src/
-│   ├── components/ui/            # Reusable UI components
-│   │   ├── navbar.tsx           # Navigation sidebar
-│   │   ├── card-metric.tsx      # Metric display cards
-│   │   ├── bar-chart.tsx        # Chart components
-│   │   ├── table.tsx            # Data table component
-│   │   └── ...
-│   ├── lib/                      # Utility functions
-│   │   └── api.ts               # API integration
-│   └── types/                    # TypeScript type definitions
-│       └── marketing.ts         # Marketing data types
-└── public/                       # Static assets
-```
+**Features:**
+- Interactive **Radial Charts** showing ROAS per device.
+- Metric cards display impressions, clicks, spend, and revenue.
+- Animated hover effects for cards and charts.
+- Dynamic gradient backgrounds for engagement.
 
-## Key Components
+**Key Components:**
+- `RadialChart`: Circular progress visualization for ROAS.
+- Card layout combines numeric KPIs with interactive visualization.
 
-### Navigation
-- Responsive sidebar navigation with collapsible design
-- Mobile-friendly hamburger menu
-- Active page indication
-
-### Data Visualization
-- Interactive bar charts for performance metrics
-- Sortable and filterable data tables
-- Real-time metric cards with icons
-- Responsive design for all screen sizes
-
-### Filtering System
-- Search functionality for campaigns
-- Multi-select dropdown filters
-- Real-time filtering with instant results
-
-## API Integration
-
-The dashboard connects to the Amana Bootcamp API to fetch real-time marketing data:
-- Endpoint: `https://www.amanabootcamp.org/api/fs-classwork-data/amana-marketing`
-- Automatic data refresh and error handling
-- CORS-enabled for development
-
-## Development
-
-### Building for Production
-```bash
-npm run build
-npm run start
-```
-
-### Tech Stack Details
-- **Next.js 15**: Latest version with Turbopack for faster builds
-- **React 19**: Latest React features
-- **TypeScript**: Full type safety
-- **Tailwind CSS 4**: Modern styling framework
-- **Lucide React**: Beautiful, customizable icons
-
-## Contributing
-
-This project is part of the Amana Bootcamp curriculum. Feel free to explore the code and suggest improvements.
-
-## License
-
-This project is for educational purposes as part of the Amana Bootcamp program.
+**Data Aggregation Example:**
+```ts
+const deviceData = campaigns.reduce((acc, campaign) => {
+  campaign.device_performance.forEach((d) => {
+    if (!acc[d.device]) acc[d.device] = { impressions: 0, clicks: 0, spend: 0, revenue: 0 };
+    acc[d.device].impressions += d.impressions;
+    acc[d.device].clicks += d.clicks;
+    acc[d.device].spend += d.spend;
+    acc[d.device].revenue += d.revenue;
+  });
+  return acc;
+}, {});
