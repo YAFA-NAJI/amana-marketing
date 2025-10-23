@@ -1,7 +1,8 @@
 interface BarChartDataPoint {
   label: string;
   value: number;
-  color?: string;
+  color?: string; // optional single color
+  gradient?: string[]; // optional gradient array
 }
 
 interface BarChartProps {
@@ -33,7 +34,7 @@ export function BarChart({
   }
 
   const maxValue = Math.max(...data.map(item => item.value));
-  const colors = [
+  const defaultColors = [
     '#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', 
     '#06B6D4', '#84CC16', '#F97316', '#EC4899', '#6366F1'
   ];
@@ -46,11 +47,16 @@ export function BarChart({
         <div className="flex items-end justify-between h-full gap-2">
           {data.map((item, index) => {
             const barHeight = maxValue > 0 ? (item.value / maxValue) * (height - 60) : 0;
-            const color = item.color || colors[index % colors.length];
-            
+            const barColor = item.color || defaultColors[index % defaultColors.length];
+
+            // Gradient style if provided
+            const backgroundStyle = item.gradient
+              ? { background: `linear-gradient(to top, ${item.gradient.join(", ")})` }
+              : { backgroundColor: barColor };
+
             return (
               <div key={item.label} className="flex flex-col items-center flex-1 min-w-0">
-                {/* Value label on top */}
+                {/* Value label */}
                 {showValues && (
                   <div className="text-xs text-gray-300 mb-2 text-center">
                     {formatValue(item.value)}
@@ -60,10 +66,10 @@ export function BarChart({
                 {/* Bar */}
                 <div className="relative w-full flex justify-center">
                   <div
-                    className="w-full max-w-16 rounded-t transition-all duration-300 hover:opacity-80"
+                    className="w-full max-w-16 rounded-t-xl shadow-lg transition-all duration-300 hover:scale-105 hover:opacity-90"
                     style={{
                       height: `${barHeight}px`,
-                      backgroundColor: color,
+                      ...backgroundStyle,
                       minHeight: item.value > 0 ? '4px' : '0px'
                     }}
                   />
@@ -77,7 +83,7 @@ export function BarChart({
             );
           })}
         </div>
-        
+
         {/* Y-axis reference lines */}
         <div className="absolute inset-0 pointer-events-none">
           {[0.25, 0.5, 0.75].map((ratio) => (
