@@ -1,9 +1,8 @@
 "use client";
 
 import { Navbar } from "../../src/components/ui/navbar";
-import { CardMetric } from "../../src/components/ui/card-metric";
 import { Footer } from "../../src/components/ui/footer";
-import { BarChart } from "../../src/components/ui/bar-chart";
+import { BarChart, BarChartDataPoint } from "../../src/components/ui/bar-chart";
 import { Table, TableColumn } from "../../src/components/ui/table";
 import {
   MousePointerClick,
@@ -66,12 +65,12 @@ export default function DemographicView() {
 
   const ageGroups = Array.from(new Set(demographics.map((d) => d.age_group)));
 
-  const spendByAge = ageGroups.map((age) => ({
+  const spendByAge: BarChartDataPoint[] = ageGroups.map((age) => ({
     label: age,
     value: sum(demographics.filter((d) => d.age_group === age), "spend"),
   }));
 
-  const revenueByAge = ageGroups.map((age) => ({
+  const revenueByAge: BarChartDataPoint[] = ageGroups.map((age) => ({
     label: age,
     value: sum(demographics.filter((d) => d.age_group === age), "revenue"),
   }));
@@ -117,37 +116,14 @@ export default function DemographicView() {
         <div className="flex-1 p-4 lg:p-6 overflow-y-auto space-y-10">
           {/* Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[{
-              title: "Male Clicks",
-              value: maleClicks,
-              icon: <MousePointerClick className="text-blue-400" />,
-              gradient: "from-blue-800 to-blue-600"
-            },{
-              title: "Male Spend",
-              value: maleSpend,
-              icon: <DollarSign className="text-green-400" />,
-              gradient: "from-green-800 to-green-600"
-            },{
-              title: "Male Revenue",
-              value: maleRevenue,
-              icon: <TrendingUp className="text-yellow-400" />,
-              gradient: "from-yellow-800 to-yellow-600"
-            },{
-              title: "Female Clicks",
-              value: femaleClicks,
-              icon: <MousePointerClick className="text-pink-400" />,
-              gradient: "from-pink-800 to-pink-600"
-            },{
-              title: "Female Spend",
-              value: femaleSpend,
-              icon: <DollarSign className="text-purple-400" />,
-              gradient: "from-purple-800 to-purple-600"
-            },{
-              title: "Female Revenue",
-              value: femaleRevenue,
-              icon: <TrendingUp className="text-teal-400" />,
-              gradient: "from-teal-800 to-teal-600"
-            }].map((card, idx) => (
+            {[
+              { title: "Male Clicks", value: maleClicks, icon: <MousePointerClick className="text-blue-400" />, gradient: "from-blue-800 to-blue-600" },
+              { title: "Male Spend", value: maleSpend, icon: <DollarSign className="text-green-400" />, gradient: "from-green-800 to-green-600" },
+              { title: "Male Revenue", value: maleRevenue, icon: <TrendingUp className="text-yellow-400" />, gradient: "from-yellow-800 to-yellow-600" },
+              { title: "Female Clicks", value: femaleClicks, icon: <MousePointerClick className="text-pink-400" />, gradient: "from-pink-800 to-pink-600" },
+              { title: "Female Spend", value: femaleSpend, icon: <DollarSign className="text-purple-400" />, gradient: "from-purple-800 to-purple-600" },
+              { title: "Female Revenue", value: femaleRevenue, icon: <TrendingUp className="text-teal-400" />, gradient: "from-teal-800 to-teal-600" },
+            ].map((card, idx) => (
               <motion.div
                 key={idx}
                 initial="hidden"
@@ -176,10 +152,10 @@ export default function DemographicView() {
             className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8"
           >
             <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-              <BarChart title="Spend by Age Group" data={spendByAge} gradient={["#4ade80","#16a34a"]}/>
+              <BarChart title="Spend by Age Group" data={spendByAge} gradient={["#4ade80","#16a34a"]} />
             </div>
             <div className="bg-gray-800 p-4 rounded-lg shadow-md">
-              <BarChart title="Revenue by Age Group" data={revenueByAge} gradient={["#facc15","#ca8a04"]}/>
+              <BarChart title="Revenue by Age Group" data={revenueByAge} gradient={["#facc15","#ca8a04"]} />
             </div>
           </motion.div>
 
