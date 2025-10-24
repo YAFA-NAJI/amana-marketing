@@ -168,3 +168,11 @@ export interface ApiResponse {
   message?: string;
   data?: MarketingData;
 }
+export interface MockupData {
+  message: string;
+  company_info: CompanyInfo;
+  marketing_stats: MarketingStats;
+  campaigns: Campaign[];
+  filters: Filters;
+}
+
